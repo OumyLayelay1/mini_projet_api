@@ -1,0 +1,30 @@
+###
+# @name getAllUsers
+GET http://localhost:3000/users
+Content-Type: application/json
+
+###
+
+# @name getUserById
+GET http://localhost:3000/users/1
+Content-Type: application/json
+
+###
+
+# @name addUser
+POST http://localhost:3000/users/add
+Content-Type: application/json
+
+{
+    "title": "Nouveau utilisateur"
+}
+
+###
+
+# @name editUser
+PUT http://localhost:3000/users/edit/1
+Content-Type: application/json
+
+{
+    "title": "Mise à jour de l'utilisateur"
+}
