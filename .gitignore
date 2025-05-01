@@ -1,13 +1,13 @@
 # Node modules
 node_modules/
 
+# Environnements
+.env
 # Logs
 logs
 *.log
 npm-debug.log*
 
-# Environnements
-.env
 
 # Build
 dist/
