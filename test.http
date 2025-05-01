@@ -1,6 +1,6 @@
 ###
 # @name getAllUsers
-GET http://localhost:3000/users
+GET http://localhost:3000/api/users
 Content-Type: application/json
 
 ###
