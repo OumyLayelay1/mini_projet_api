@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const localDB = process.env.MONGO_URI || "mongodb://localhost:27017/mini_projet";
+const localDB = process.env.MONGO_URI || process.env.MongoDBLocal;
 
 const connectDB = async () => {
   try {

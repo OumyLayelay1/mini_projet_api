@@ -14,7 +14,7 @@ app.use('/api/users', usersRoutes)
 app.use("/api/auth", authRoutes)
 app.use("/api/produits", produitRoutes)
 
-app.listen ( 3000 , () => { 
+app.listen ( process.env.PORT , () => { 
     console . log ( "Le serveur s'exécute sur le port 3000" ); 
 });
 

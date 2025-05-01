@@ -1,30 +1,29 @@
 ###
+
+#@name auth
+POST http://localhost:3000/api/auth/register
+POST http://localhost:3000/api/auth/login
+
 # @name getAllUsers
 GET http://localhost:3000/api/users
 Content-Type: application/json
-
 ###
-
 # @name getUserById
-GET http://localhost:3000/users/1
+GET http://localhost:3000/api/users/id
 Content-Type: application/json
-
-###
-
-# @name addUser
-POST http://localhost:3000/users/add
-Content-Type: application/json
-
-{
-    "title": "Nouveau utilisateur"
-}
-
-###
-
 # @name editUser
-PUT http://localhost:3000/users/edit/1
+PUT http://localhost:3000/api/users/edit/id
 Content-Type: application/json
+# @name deleteUser
+PUT http://localhost:3000/api/users/delete/id
 
-{
-    "title": "Mise à jour de l'utilisateur"
-}
+@name getAllProduits
+GET http://localhost:3000/api/produits
+@name getAllProduitById
+GET http://localhost:3000/api/produits/id
+@name createProduit
+POST http://localhost:3000/api/produits/add
+@name editProduit
+PUT http://localhost:3000/api/produits/edit/id
+@name deleteProduit
+delete http://localhost:3000/api/produits/delete/id

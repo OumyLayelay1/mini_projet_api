@@ -1,0 +1,29 @@
+###
+
+#@name auth
+POST https://mini-projet-api.onrender.com/api/auth/register
+POST https://mini-projet-api.onrender.com/api/auth/login
+
+# @name getAllUsers
+GET https://mini-projet-api.onrender.com/api/users
+Content-Type: application/json
+###
+# @name getUserById
+GET https://mini-projet-api.onrender.com/api/users/id
+Content-Type: application/json
+# @name editUser
+PUT https://mini-projet-api.onrender.com/api/users/edit/id
+Content-Type: application/json
+# @name deleteUser
+PUT https://mini-projet-api.onrender.com/api/users/delete/id
+
+@name getAllProduits
+GET https://mini-projet-api.onrender.com/api/produits
+@name getAllProduitById
+GET https://mini-projet-api.onrender.com/api/produits/id
+@name createProduit
+POST https://mini-projet-api.onrender.com/api/produits/add
+@name editProduit
+PUT https://mini-projet-api.onrender.com/api/produits/edit/id
+@name deleteProduit
+delete https://mini-projet-api.onrender.com/api/produits/delete/id
