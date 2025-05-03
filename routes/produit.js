@@ -21,13 +21,14 @@ router.post('/add', upload.single('image'), async (req, res) => {
         prix,
         description,
         image,
-        userId: req.user.id, // si tu gères l’auth
+        userId: req.user.id, // ou autre source d'id utilisateur
       });
   
       await produit.save();
       res.status(201).json(produit);
     } catch (error) {
-      res.status(500).json({ message: 'Erreur serveur', error });
+      console.error(error);
+      res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }
   });
 
