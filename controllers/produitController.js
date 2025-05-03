@@ -17,7 +17,8 @@ exports.getAllProduits = async (req, res) => {
 
 exports.createProduit = async (req, res) => {
   try {
-    const { title, image, prix, description } = req.body;
+    const { title, prix, description } = req.body;
+    const image = req.file ? req.file.filename : null;
     const userId = req.user.id;
 
     const produit = new Produit({
