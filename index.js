@@ -20,8 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/api/users', usersRoutes)
-app.use("/api/auth", authRoutes)
 app.use("/api/produits", produitRoutes)
+app.use("/api/auth", authRoutes)
 
 app.listen ( process.env.PORT , () => { 
     console . log ( "Le serveur s'exécute sur le port 3000" ); 
