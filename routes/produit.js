@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const produitsController = require("../controllers/produitController")
-const upload = require('../middlewares/upload'); // importe le middleware
+const upload = require('../middleware/upload'); // importe le middleware
 const Produit = require('../models/produit');
 const verifyToken = require("../middleware/verifyToken");
 
