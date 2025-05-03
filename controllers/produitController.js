@@ -17,6 +17,8 @@ exports.getAllProduits = async (req, res) => {
 
 exports.createProduit = async (req, res) => {
   try {
+    console.log("req.body :", req.body);
+    console.log("req.file :", req.file);
     const { title, prix, description } = req.body;
     const image = req.file ? req.file.filename : null;
     const userId = req.user.id;
