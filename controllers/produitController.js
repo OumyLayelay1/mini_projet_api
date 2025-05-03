@@ -1,5 +1,7 @@
 const Produit = require('../models/produit');
 const User = require('../models/user');
+const fs = require("fs");
+const path = require("path");
 
 exports.getAllProduits = async (req, res) => {
   try {
@@ -17,8 +19,8 @@ exports.getAllProduits = async (req, res) => {
 
 exports.createProduit = async (req, res) => {
   try {
-    console.log("req.body :", req.body);
-    console.log("req.file :", req.file);
+    // console.log("req.body :", req.body);
+    // console.log("req.file :", req.file);
     const { title, prix, description } = req.body;
     const image = req.file ? req.file.filename : null;
     const userId = req.user.id;
@@ -64,25 +66,36 @@ exports.updateProduit = async (req, res) => {
   const { id } = req.params;
   const {
     title,
-      image,
-      prix,
-      description,
-      user: userId
+    prix,
+    description,
+    user: userId
   } = req.body;
 
-  try {
+  // Si une nouvelle image est envoyée, elle est disponible via req.file
+  const newImage = req.file ? req.file.filename : null;
 
+  try {
     const produit = await Produit.findById(id);
     if (!produit) {
       return res.status(404).json({ message: "Produit non trouvé" });
     }
 
+    // Supprimer l'ancienne image si une nouvelle est fournie
+    if (newImage && produit.image) {
+      const oldImagePath = path.join(__dirname, "../uploads", produit.image);
+      fs.unlink(oldImagePath, (err) => {
+        if (err) {
+          console.error("Erreur lors de la suppression de l'ancienne image :", err.message);
+        }
+      });
+    }
+
     // Mise à jour des champs
     produit.title = title || produit.title;
     produit.prix = prix || produit.prix;
-    produit.image = image || produit.image;
     produit.description = description || produit.description;
     produit.user = userId || produit.user;
+    if (newImage) produit.image = newImage;
 
     await produit.save();
 

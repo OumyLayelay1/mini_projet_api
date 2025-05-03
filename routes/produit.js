@@ -6,7 +6,7 @@ const verifyToken = require("../middleware/verifyToken");
 
 router.get('/', produitsController.getAllProduits );
 router.post('/add', verifyToken, upload.single('image'), produitsController.createProduit );
-router.put('/edit/:id', verifyToken, produitsController.updateProduit );
+router.put('/edit/:id', verifyToken, upload.single('image'), produitsController.updateProduit );
 router.delete('/delete/:id', verifyToken, produitsController.deleteProduit );
 
 router.get('/:id', produitsController.getProduitById );
