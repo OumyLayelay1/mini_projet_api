@@ -1,5 +1,6 @@
 require('dotenv').config();
-const express = require ( 'express' ); 
+const express = require ( 'express' );
+const cors = require('cors'); 
 const app = express ();
 const connectDB = require("./db");
 connectDB();
@@ -7,6 +8,12 @@ const usersRoutes = require("./routes/user")
 const authRoutes = require("./routes/auth")
 const produitRoutes = require("./routes/produit")
 
+app.use(cors({
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  }));
 app.use (express.json ());
 app.use(express.urlencoded({ extended: true }));
 
