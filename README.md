@@ -11,9 +11,14 @@ Ce projet est une API REST construite avec Node.js, Express et MongoDB. Il perme
 - bcryptjs pour le hachage des mots de passe (https://www.npmjs.com/package/bcryptjs)
 - dotenv pour les variables d'environnement (https://www.npmjs.com/package/dotenv)
 - nodemon *(développement)*
+- multer
+- multer-storage-cloudinary
+- cloudinary
+- helmet
 
 ## Structure du projet
 - MINI_PROJET_BACKEND
+ - config
  - controllers
  - middleware
  - models
@@ -29,15 +34,17 @@ Ce projet est une API REST construite avec Node.js, Express et MongoDB. Il perme
  - test.https
 
 ## Installation 
-git clone https://github.com/OumyLayelay1/mini_projet_api.git
-cd mini_projet_backend
-npm install
+- git clone https://github.com/OumyLayelay1/mini_projet_api.git
+- cd mini_projet_backend
+- npm install
 
 ## Lancer le serveur
 node index.js
 
 ## Endpoints 
-voir *test.http* et *test.https*
+voir 
+- *test.http* 
+- *test.https*
 
 ## Test
 - Thunder Client

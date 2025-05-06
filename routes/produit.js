@@ -1,7 +1,9 @@
 const express = require("express")
 const router = express.Router()
 const produitsController = require("../controllers/produitController")
-const upload = require('../middleware/upload'); // importe le middleware
+const multer = require('multer');
+const { storage } = require('../config/cloudinary');
+const upload = multer({ storage });
 const verifyToken = require("../middleware/verifyToken");
 
 router.get('/', produitsController.getAllProduits );

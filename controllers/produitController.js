@@ -1,7 +1,8 @@
 const Produit = require('../models/produit');
-const User = require('../models/user');
 const fs = require("fs");
 const path = require("path");
+const { cloudinary } = require('../config/cloudinary');
+
 
 exports.getAllProduits = async (req, res) => {
   try {
@@ -16,13 +17,10 @@ exports.getAllProduits = async (req, res) => {
       });
   }
 };
-
 exports.createProduit = async (req, res) => {
   try {
-    // console.log("req.body :", req.body);
-    // console.log("req.file :", req.file);
     const { title, prix, description } = req.body;
-    const image = req.file ? req.file.filename : null;
+    const image = req.file ? req.file.path : null;
     const userId = req.user.id;
 
     const produit = new Produit({
@@ -64,15 +62,8 @@ exports.getProduitById = async (req, res) => {
 
 exports.updateProduit = async (req, res) => {
   const { id } = req.params;
-  const {
-    title,
-    prix,
-    description,
-    user: userId
-  } = req.body;
-
-  // Si une nouvelle image est envoyée, elle est disponible via req.file
-  const newImage = req.file ? req.file.filename : null;
+  const { title, prix, description, user: userId } = req.body;
+  const newImage = req.file ? req.file.path : null;
 
   try {
     const produit = await Produit.findById(id);
@@ -80,23 +71,30 @@ exports.updateProduit = async (req, res) => {
       return res.status(404).json({ message: "Produit non trouvé" });
     }
 
-    // Supprimer l'ancienne image si une nouvelle est fournie
+    // Si une nouvelle image est uploadée, supprimer l'ancienne image de Cloudinary
     if (newImage && produit.image) {
-      const oldImagePath = path.join(__dirname, "../uploads", produit.image);
-      fs.unlink(oldImagePath, (err) => {
-        if (err) {
-          console.error("Erreur lors de la suppression de l'ancienne image :", err.message);
-        }
-      });
+      // Extraire le `public_id` de l'URL Cloudinary actuelle
+      const segments = produit.image.split('/');
+      const filename = segments[segments.length - 1]; // Récupère le nom du fichier
+      const publicId = filename.split('.')[0]; // Récupère le `public_id` (avant l'extension)
+
+      try {
+        // Supprimer l'image sur Cloudinary
+        await cloudinary.uploader.destroy(publicId);
+      } catch (err) {
+        console.error("Erreur lors de la suppression de l'image sur Cloudinary :", err.message);
+      }
     }
 
-    // Mise à jour des champs
+    // Mise à jour des champs du produit
     produit.title = title || produit.title;
     produit.prix = prix || produit.prix;
     produit.description = description || produit.description;
     produit.user = userId || produit.user;
-    if (newImage) produit.image = newImage;
+    
+    if (newImage) produit.image = newImage; // Remplacer l'ancienne image par la nouvelle
 
+    // Sauvegarder les modifications
     await produit.save();
 
     return res.status(200).json({
@@ -110,6 +108,7 @@ exports.updateProduit = async (req, res) => {
     });
   }
 };
+
 
 exports.deleteProduit = async (req, res) => {
   const { id } = req.params;

@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require ( 'express' );
-const path = require('path');
+// const path = require('path');
 const cors = require('cors'); 
+const helmet = require('helmet');
 const app = express ();
 const connectDB = require("./db");
 connectDB();
@@ -18,8 +19,16 @@ app.use(cors({
 app.use (express.json ());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads'));
-
-
+app.use(
+    helmet.contentSecurityPolicy({
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", 'https://fonts.googleapis.com'],
+        fontSrc: ['https://fonts.gstatic.com'],
+      },
+    })
+  );
+  app.use(express.static('build'));
 app.use("/api/auth", authRoutes)
 app.use('/api/users', usersRoutes)
 app.use("/api/produits", produitRoutes)
