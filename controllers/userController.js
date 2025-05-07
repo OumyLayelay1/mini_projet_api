@@ -56,13 +56,6 @@ exports.updateUser = async (req, res) => {
   }
 
   try {
-    // const requester = await User.findById(requesterId);
-    // if (!requester || requester.role !== "admin") {
-    //   return res
-    //     .status(403)
-    //     .json({ message: "Seul un admin peut mettre à jour un utilisateur" });
-    // }
-
     const user = await User.findById(id);
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé" });

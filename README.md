@@ -37,6 +37,13 @@ Ce projet est une API REST construite avec Node.js, Express et MongoDB. Il perme
 - git clone https://github.com/OumyLayelay1/mini_projet_api.git
 - cd mini_projet_backend
 - npm install
+- Configurer les variables d'environnement en créant un fichier .env à la racine et adapte les valeurs concernant la base de donnée et le stockage de l'image:
+  - Key
+  - MONGO_URI
+  - MongoDBLocal
+  - CLOUDINARY_CLOUD_NAME
+  - CLOUDINARY_API_KEY
+  - CLOUDINARY_API_SECRET
 
 ## Lancer le serveur
 node index.js
